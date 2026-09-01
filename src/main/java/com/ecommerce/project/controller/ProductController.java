@@ -1,5 +1,4 @@
 package com.ecommerce.project.controller;
-
 import com.ecommerce.project.config.AppConstants;
 import com.ecommerce.project.model.Product;
 import com.ecommerce.project.payload.ProductDTO;
@@ -24,20 +23,29 @@ public class ProductController {
     @PostMapping("/admin/categories/{categoryId}/product")
     public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO ,
                                                  @PathVariable Long categoryId){
-
     ProductDTO savedproductDTO =  productService.addProduct(categoryId,productDTO);
     return  new ResponseEntity<>(savedproductDTO, HttpStatus.CREATED);
     }
 
+    @PostMapping("/seller/categories/{categoryId}/product")
+    public ResponseEntity<ProductDTO> addProductSeller(@Valid @RequestBody ProductDTO productDTO ,
+                                                 @PathVariable Long categoryId){
+        ProductDTO savedproductDTO =  productService.addProduct(categoryId,productDTO);
+        return  new ResponseEntity<>(savedproductDTO, HttpStatus.CREATED);
+    }
+
+
     @GetMapping("/public/products")
     public ResponseEntity<ProductResponse> getAllProduct(
-                                    @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER,required = false)Integer pageNumber,
-                                    @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)Integer pageSize,
-                                    @RequestParam(name = "sortBy",defaultValue = AppConstants.SORT_CATEGORIES_BY)String sortBy,
-                                    @RequestParam(name = "sortOrder",defaultValue = AppConstants.SORT_DIR)String sortOrder
+            @RequestParam(name = "keyword",required = false)String keyword,
+            @RequestParam(name = "category",required = false)String category,
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER,required = false)Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)Integer pageSize,
+            @RequestParam(name = "sortBy",defaultValue = AppConstants.SORT_PRODUCTS_BY)String sortBy,
+            @RequestParam(name = "sortOrder",defaultValue = AppConstants.SORT_DIR)String sortOrder
 
-                                    ){
-        ProductResponse productResponse =  productService.getAllProduct(pageNumber,pageSize,sortBy, sortOrder);
+    ){
+        ProductResponse productResponse =  productService.getAllProduct(pageNumber,pageSize,sortBy, sortOrder,keyword,category);
         return  new ResponseEntity<>(productResponse,HttpStatus.OK);
     }
 
@@ -71,18 +79,45 @@ public class ProductController {
 
     }
 
+
+
     @DeleteMapping("/admin/products/{productId}")
     public ResponseEntity<ProductDTO> deleteProduct(@PathVariable Long productId){
       ProductDTO deleteProduct=  productService.deleteProduct(productId);
         return new ResponseEntity<>(deleteProduct,HttpStatus.OK);
     }
 
-    @PutMapping("/products/{productId}/image")
+    @PutMapping("/admin/products/{productId}/image")
     public ResponseEntity<ProductDTO> updateProductImage(@PathVariable Long productId,
                                                          @RequestParam("image")MultipartFile image) throws IOException {
        ProductDTO updateProduct = productService.updateProductImage(productId,image);
         return  new ResponseEntity<>(updateProduct,HttpStatus.OK);
     }
+
+    @GetMapping("/admin/products")
+    public ResponseEntity<ProductResponse> getAllProductsForAdmin(
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER,required = false)Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)Integer pageSize,
+            @RequestParam(name = "sortBy",defaultValue = AppConstants.SORT_PRODUCTS_BY)String sortBy,
+            @RequestParam(name = "sortOrder",defaultValue = AppConstants.SORT_DIR)String sortOrder
+
+    ){
+        ProductResponse productResponse =  productService.getAllProductsForAdmin(pageNumber,pageSize,sortBy, sortOrder);
+        return  new ResponseEntity<>(productResponse,HttpStatus.OK);
+    }
+
+    @GetMapping("/seller/products")
+    public ResponseEntity<ProductResponse> getAllProductsForSeller(
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER,required = false)Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)Integer pageSize,
+            @RequestParam(name = "sortBy",defaultValue = AppConstants.SORT_PRODUCTS_BY)String sortBy,
+            @RequestParam(name = "sortOrder",defaultValue = AppConstants.SORT_DIR)String sortOrder
+
+    ){
+        ProductResponse productResponse =  productService.getAllProductsForSeller(pageNumber,pageSize,sortBy, sortOrder);
+        return  new ResponseEntity<>(productResponse,HttpStatus.OK);
+    }
+
 
 
 }
