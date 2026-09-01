@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItemDTO {
+public class AnalyticsResponse {
 
-    private Long productId;
-    private Integer quantity;
-
+    private String productCount;
+    private String totalRevenue;
+    private String totalOrders;
 }
