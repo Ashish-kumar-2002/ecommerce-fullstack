@@ -60,11 +60,34 @@ public class AuthServiceImpl implements  AuthService{
     ModelMapper modelMapper;
 
 
+//    @Override
+//    public AuthenticationResult login(LoginRequest loginRequest) {
+//
+//        Authentication authentication =  authenticationManager
+//                    .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//
+//        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+//
+//        List<String> roles = userDetails.getAuthorities().stream()
+//                .map(item -> item.getAuthority())
+//                .collect(Collectors.toList());
+//
+//        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
+//                userDetails.getUsername(), roles,userDetails.getEmail(),jwtCookie.toString());
+//           return new AuthenticationResult(response,jwtCookie);
+//    }
+
+
+
     @Override
     public AuthenticationResult login(LoginRequest loginRequest) {
 
-        Authentication authentication =  authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -77,8 +100,9 @@ public class AuthServiceImpl implements  AuthService{
                 .collect(Collectors.toList());
 
         UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
-                userDetails.getUsername(), roles,userDetails.getEmail(),jwtCookie.toString());
-           return new AuthenticationResult(response,jwtCookie);
+                userDetails.getUsername(), roles, userDetails.getEmail(), null);
+
+        return new AuthenticationResult(response, jwtCookie);
     }
 
     @Override
