@@ -47,7 +47,8 @@ public class CategoryController {
             @ApiResponse(responseCode = "401",description = "Invalid Input",content = @Content),
             @ApiResponse(responseCode = "500",description = "Internal server error",content = @Content)
     })
-    @PostMapping("/public/categories")
+    //@PostMapping("/public/categories")
+    @PostMapping("/admin/categories")
     public ResponseEntity<CategoryDTO> createCategory(@Parameter(description = "Category that you wish to create ")
             @Valid @RequestBody CategoryDTO categoryDTO){
         CategoryDTO savedCategoryDTO = categoryService.createCategory(categoryDTO);
@@ -61,15 +62,12 @@ public class CategoryController {
             return  ResponseEntity.status(HttpStatus.OK).body(deleteCategory);
     }
 
-    @PutMapping("/public/categories/{categoryId}")
+    @PutMapping("/admin/categories/{categoryId}")
     public ResponseEntity<CategoryDTO>updateCategory(@Valid @RequestBody CategoryDTO categoryDTO,
                                                 @PathVariable Long categoryId){
         CategoryDTO saveCategoryDTO  = categoryService.updateCategory(categoryDTO,categoryId);
         return new ResponseEntity<>(saveCategoryDTO , HttpStatus.OK);
 
     }
-
-
-
 
 }
