@@ -179,7 +179,7 @@ public class JwtUtils {
                 .from(jwtCookie, jwt)
                 .path("/api")
                 .maxAge(24 * 60 * 60)
-                .secure(false)
+                .secure(true)
                 .sameSite("None")
                 .build();
 
