@@ -1,12 +1,13 @@
-package com.ecommerce.project.payload;
 
+package com.ecommerce.project.payload;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserResponse {
 
     private List<UserDTO> content;
@@ -15,4 +16,5 @@ public class UserResponse {
     private Long totalElements;
     private Integer totalPages;
     private boolean lastPage;
+
 }

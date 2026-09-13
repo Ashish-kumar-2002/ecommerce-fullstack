@@ -29,7 +29,7 @@ public class CategoryController {
         //public ResponseEntity<String> echoMessage(@RequestParam(name = "message" ,defaultValue = "Hello World ")String message)
         return new ResponseEntity<>("Echo Message: " + message,HttpStatus.OK);
     }
-
+    
     @Tag(name = "Category API",description = "APIs for managing Products")
     @GetMapping("/public/categories")
     public ResponseEntity<CategoryResponse> getAllCategories(@RequestParam(name = "pageNumber" ,defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber,
