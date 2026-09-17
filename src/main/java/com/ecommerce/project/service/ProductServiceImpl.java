@@ -266,26 +266,6 @@ public class ProductServiceImpl implements  ProductService {
         return modelMapper.map(product, ProductDTO.class);
     }
 
-//    @Override
-//    public ProductDTO updateProductImage(Long productId, MultipartFile image) throws IOException {
-//        Product productFromDb = productRepository.findById(productId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-//
-//
-//        String fileName = fileService.uploadImage(path, image);
-//
-//        productFromDb.setImage(fileName);
-//
-//        Product updatedProduct = productRepository.save(productFromDb);
-//
-//        ProductDTO productDTO = modelMapper.map(updatedProduct, ProductDTO.class);
-//        productDTO.setImage(constructImageUrl(updatedProduct.getImage()));
-//        return  productDTO;
-//
-////        return modelMapper.map(updatedProduct, ProductDTO.class);
-//    }
-
-
             @Override
             public ProductDTO updateProductImage(Long productId, MultipartFile image) throws IOException {
 
